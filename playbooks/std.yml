@@ -1,0 +1,18 @@
+- hosts : all
+  tasks :
+        - name : "Install standard packages"
+          apt :
+                  name: "{{item}}"
+                  state: latest
+                  update_cache: yes
+          with_items:
+                  - rsync
+                  - vim
+                  - git
+                  - ansible
+        - name : "Remove nano"
+          apt :
+                  name: nano
+                  state: removed
+
+
