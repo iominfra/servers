@@ -1,0 +1,33 @@
+  - name: Install packages for apt add repository over HTTPS
+    become: yes
+    apt:
+      name: "{{ packagesdep }}"
+      state: latest
+      update_cache: yes
+    vars:
+      packagesdep:
+      - git
+      - apt-transport-https
+      - ca-certificates
+      - wget
+      - software-properties-common
+      - gnupg2
+      - curl
+  - name: Add Apt signing key from official docker repo
+    apt_key:
+      url: https://download.docker.com/linux/debian/gpg
+      state: present
+  - name: add docker official repository for Debian Stretch
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+      state: present
+  - name: Upgrade all packages to the latest version
+    apt:
+      upgrade: dist
+  - name: actually install docker
+    apt:
+      name: "{{item}}"
+      state: latest
+    with_items:
+      - docker-ce
+      - docker-compose
