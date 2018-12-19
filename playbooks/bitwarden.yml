@@ -1,0 +1,9 @@
+- hosts: all
+  tasks:
+    - name: "Bitwarden Installer download"
+      get_url:
+        url: https://raw.githubusercontent.com/bitwarden/core/master/scripts/bitwarden.sh
+        dest: /tmp/bitwarden.sh
+        mode: 0777
+    - name: "Run Bitwarden Installer"
+      shell: /tmp/bitwarden.sh install
