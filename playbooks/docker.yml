@@ -31,3 +31,7 @@
     with_items:
       - docker-ce
       - docker-compose
+  - name: Start docker service
+    service:
+      name: docker
+      state: started
